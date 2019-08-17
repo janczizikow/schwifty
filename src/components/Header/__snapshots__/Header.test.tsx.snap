@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> renders correctly 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "white",
+      "elevation": 7,
+      "justifyContent": "center",
+      "shadowColor": "black",
+      "shadowOffset": Object {
+        "height": 4,
+        "width": 0,
+      },
+      "shadowOpacity": 0.25,
+      "shadowRadius": 5,
+      "zIndex": 999,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "height": 44,
+        "justifyContent": "space-between",
+        "marginHorizontal": 10,
+      }
+    }
+  >
+    <Text
+      numberOfLines={1}
+      style={
+        Object {
+          "color": "#2a2a30",
+          "fontSize": 24,
+        }
+      }
+    >
+      Schwifty
+    </Text>
+  </View>
+</RCTSafeAreaView>
+`;
