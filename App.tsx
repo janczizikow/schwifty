@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {SafeAreaView, StatusBar, Platform} from 'react-native';
+import {SafeAreaView, StatusBar, Platform, StyleSheet} from 'react-native';
 import {ApolloProvider} from 'react-apollo';
-import {CharacterCard} from './src/components';
+import {CharacterList} from './src/components';
 import client from './src/utils/apollo';
 
 const App = () => {
@@ -14,15 +14,17 @@ const App = () => {
 
   return (
     <ApolloProvider client={client}>
-      <SafeAreaView>
-        <CharacterCard
-          name="Rick Sanchez"
-          status="alive"
-          image="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-        />
+      <SafeAreaView style={styles.flex}>
+        <CharacterList />
       </SafeAreaView>
     </ApolloProvider>
   );
 };
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+});
 
 export default App;

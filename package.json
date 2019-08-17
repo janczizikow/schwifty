@@ -16,7 +16,8 @@
     "graphql": "^14.4.2",
     "react": "16.8.6",
     "react-apollo": "^3.0.1",
-    "react-native": "0.60.5"
+    "react-native": "0.60.5",
+    "recyclerlistview": "^2.0.10-beta.3"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
