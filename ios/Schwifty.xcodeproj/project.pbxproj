@@ -16,6 +16,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* SchwiftyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SchwiftyTests.m */; };
+		3DE8B0332307FE6A00350C0E /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3DE8B0322307FE4D00350C0E /* Ionicons.ttf */; };
 		894255B1D8BF65E291279151 /* libPods-Schwifty-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE9B4BF755B045F7681A483 /* libPods-Schwifty-tvOS.a */; };
 		B8121D4A220266E583CB6D04 /* libPods-SchwiftyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2897A6FFEC65DA4B440763 /* libPods-SchwiftyTests.a */; };
 		BF2B81BAB25754CD9AE62339 /* libPods-Schwifty-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB6AD065B4B5F6388C20B2E /* libPods-Schwifty-tvOSTests.a */; };
@@ -56,6 +57,7 @@
 		2D02E4901E0B4A5D006451C7 /* Schwifty-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Schwifty-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E2EB07932FE2F1EEC167411 /* Pods-Schwifty-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Schwifty-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Schwifty-tvOSTests/Pods-Schwifty-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		3CB6AD065B4B5F6388C20B2E /* libPods-Schwifty-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Schwifty-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DE8B0322307FE4D00350C0E /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		4CE9B4BF755B045F7681A483 /* libPods-Schwifty-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Schwifty-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87EAA78B7C57F85DA8718F16 /* Pods-SchwiftyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SchwiftyTests.debug.xcconfig"; path = "Target Support Files/Pods-SchwiftyTests/Pods-SchwiftyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8B10C1E15E586EA0F031153D /* Pods-Schwifty-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Schwifty-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Schwifty-tvOS/Pods-Schwifty-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -148,7 +150,6 @@
 				87EAA78B7C57F85DA8718F16 /* Pods-SchwiftyTests.debug.xcconfig */,
 				C8F8477667837F6A7773F19F /* Pods-SchwiftyTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -165,6 +166,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3DE8B0312307FE0B00350C0E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3DE8B0322307FE4D00350C0E /* Ionicons.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +184,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3DE8B0312307FE0B00350C0E /* Fonts */,
 				13B07FAE1A68108700A75B9A /* Schwifty */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SchwiftyTests */,
@@ -308,6 +318,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -336,6 +347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DE8B0332307FE6A00350C0E /* Ionicons.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
