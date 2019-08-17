@@ -11,6 +11,7 @@ import gql from 'graphql-tag';
 import {useQuery} from 'react-apollo';
 import LayoutProvider, {LAYOUT_TYPE} from './LayoutProvider';
 import CharacterCard from '../CharacterCard';
+import {Characters, Character} from '../../graphql';
 
 export const MORE_CHARACTERS_QUERY = gql`
   query charactersQuery($page: Int!) {
@@ -30,64 +31,76 @@ export const MORE_CHARACTERS_QUERY = gql`
   }
 `;
 
+interface CharactersQueryResults {
+  __typename: 'Characters';
+  characters: Characters;
+}
+
 const CharactersList = () => {
   const SCREEN_HEIGHT = Dimensions.get('window').height;
   const [list, setList] = useState(new DataProvider((r1, r2) => r1 !== r2));
   const [fetchedAllPages, setFetchedAllPages] = useState(false);
-  const {
-    loading,
-    error,
-    data: {characters},
-    fetchMore,
-  } = useQuery(MORE_CHARACTERS_QUERY, {
+  const {loading, error, data, fetchMore} = useQuery<
+    CharactersQueryResults,
+    {page?: number; filter?: any}
+  >(MORE_CHARACTERS_QUERY, {
     variables: {page: 1},
   });
 
   useEffect(() => {
-    if (characters) {
+    const characters = data ? data.characters : null;
+    if (characters && characters.results) {
       setList(prevList =>
         prevList.cloneWithRows(
-          characters.results.map(character => ({
+          characters.results!.map(character => ({
             type: LAYOUT_TYPE,
             item: character,
           })),
         ),
       );
     }
-  }, [characters]);
+  }, [data]);
 
-  const rowRenderer = (type: string | number, data: any) => (
+  const rowRenderer = (_: string | number, rowData: {item: Character}) => (
     <CharacterCard
-      name={data.item.name}
-      image={data.item.image}
-      status={data.item.status}
+      name={rowData.item.name!}
+      image={rowData.item.image!}
+      status={rowData.item.status!}
     />
   );
 
   const renderFooter = () => <ActivityIndicator />;
 
   const fetchNextPage = () => {
-    if (!fetchedAllPages) {
+    if (
+      !fetchedAllPages &&
+      data &&
+      data.characters &&
+      data.characters.info &&
+      data.characters.info.next
+    ) {
       fetchMore({
-        variables: {page: characters.info.next},
+        variables: {page: data.characters.info.next},
         updateQuery: (previousResults, {fetchMoreResult}) => {
-          const pageInfo = fetchMoreResult.characters.info;
-          const newCharacters = fetchMoreResult.characters.results;
+          const pageInfo = fetchMoreResult!.characters.info;
+          const newCharacters = fetchMoreResult!.characters.results;
 
-          if (pageInfo.next === null) {
+          if (pageInfo && pageInfo.next === null) {
             setFetchedAllPages(true);
           }
 
-          return Object.assign({}, previousResults, {
-            characters: {
-              info: pageInfo,
-              results: [
-                ...previousResults.characters.results,
-                ...newCharacters,
-              ],
-              __typename: previousResults.__typename,
-            },
-          });
+          return previousResults.characters.results && newCharacters
+            ? Object.assign({}, previousResults, {
+                characters: {
+                  info: pageInfo,
+                  results: [
+                    ...previousResults.characters.results,
+                    ...newCharacters,
+                  ],
+                  __typename: previousResults.__typename,
+                },
+              })
+            : previousResults;
         },
       });
     }
