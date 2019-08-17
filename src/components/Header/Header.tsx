@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
   TextInput,
@@ -8,6 +7,7 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
+import {SafeAreaView} from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../../utils/theme';
 
@@ -20,7 +20,9 @@ interface OwnProps {
 
 const Header = React.memo<OwnProps>(
   ({onBackButtonPress, title, onPressSearch, onChangeSearchText}) => (
-    <SafeAreaView style={styles.header}>
+    <SafeAreaView
+      forceInset={{top: 'always', bottom: 'never'}}
+      style={styles.header}>
       <View style={styles.headerInner}>
         {onBackButtonPress && (
           <TouchableOpacity onPress={onBackButtonPress}>
