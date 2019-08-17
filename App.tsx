@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar, Platform, StyleSheet} from 'react-native';
 import {ApolloProvider} from 'react-apollo';
-import {CharacterList} from './src/components';
+import {CharactersList} from './src/components';
 import client from './src/utils/apollo';
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <SafeAreaView style={styles.flex}>
-        <CharacterList />
+        <CharactersList />
       </SafeAreaView>
     </ApolloProvider>
   );

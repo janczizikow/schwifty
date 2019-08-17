@@ -1,2 +1,3 @@
 export {default as CharacterCard} from './CharacterCard';
-export {default as CharacterList} from './CharactersList';
+export {default as CharactersList} from './CharactersList';
+export {default as ErrorMessage} from './ErrorMessage';

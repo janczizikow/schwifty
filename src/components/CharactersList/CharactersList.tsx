@@ -1,16 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  Dimensions,
-  ActivityIndicator,
-  Text,
-} from 'react-native';
+import {StyleSheet, View, Dimensions, ActivityIndicator} from 'react-native';
 import {RecyclerListView, DataProvider} from 'recyclerlistview';
 import gql from 'graphql-tag';
 import {useQuery} from 'react-apollo';
 import LayoutProvider, {LAYOUT_TYPE} from './LayoutProvider';
 import CharacterCard from '../CharacterCard';
+import ErrorMessage from '../ErrorMessage';
 import {Characters, Character} from '../../graphql';
 
 export const MORE_CHARACTERS_QUERY = gql`
@@ -40,7 +35,7 @@ const CharactersList = () => {
   const SCREEN_HEIGHT = Dimensions.get('window').height;
   const [list, setList] = useState(new DataProvider((r1, r2) => r1 !== r2));
   const [fetchedAllPages, setFetchedAllPages] = useState(false);
-  const {loading, error, data, fetchMore} = useQuery<
+  const {loading, error, data, fetchMore, refetch} = useQuery<
     CharactersQueryResults,
     {page?: number; filter?: any}
   >(MORE_CHARACTERS_QUERY, {
@@ -70,6 +65,10 @@ const CharactersList = () => {
   );
 
   const renderFooter = () => <ActivityIndicator />;
+
+  const refetchOnError = () => {
+    refetch({page: 1});
+  };
 
   const fetchNextPage = () => {
     if (
@@ -115,7 +114,7 @@ const CharactersList = () => {
   }
 
   if (error) {
-    return <Text>Error</Text>;
+    return <ErrorMessage onRetry={refetchOnError} />;
   }
 
   return (
