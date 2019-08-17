@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CharacterCard /> renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flexDirection": "row",
+      "margin": 10,
+    }
+  }
+>
+  <Image
+    resizeMode="contain"
+    source={
+      Object {
+        "uri": "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+      }
+    }
+    style={
+      Object {
+        "backgroundColor": "#e7e7f0",
+        "height": 80,
+        "width": 80,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "marginHorizontal": 10,
+      }
+    }
+  >
+    <Text
+      numberOfLines={2}
+      style={
+        Object {
+          "color": "#2a2a30",
+          "fontSize": 24,
+          "fontWeight": "600",
+        }
+      }
+    >
+      Rick Sanchez
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#828393",
+        }
+      }
+    >
+      alive
+    </Text>
+  </View>
+</View>
+`;
