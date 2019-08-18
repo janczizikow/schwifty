@@ -38,6 +38,6 @@ describe('<Header />', () => {
       <Header title="Schwifty" onChangeSearchText={mockCallback} />,
     );
 
-    expect(testRenderer.root.findAllByType(TextInput)).toHaveLength(1);
+    testRenderer.root.findByType(TextInput);
   });
 });

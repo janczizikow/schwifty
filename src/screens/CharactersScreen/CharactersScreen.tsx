@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {NavigationScreenProps} from 'react-navigation';
-import {Header, CharactersList} from '../components';
+import {Header, CharactersList} from '../../components';
 
 const CharactersScreen: React.FC<NavigationScreenProps> = ({navigation}) => {
   const handleSearchPress = () => {

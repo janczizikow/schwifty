@@ -1,18 +1,23 @@
-import {Button} from 'react-native';
 import React from 'react';
+import {Button} from 'react-native';
 import renderer from 'react-test-renderer';
 import ErrorMessage from './ErrorMessage';
 
 describe('<ErrorMessage />', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(<ErrorMessage />).toJSON();
+    const component = renderer.create(<ErrorMessage />);
+    const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders a Button when given a prop', () => {
+  it('calls onRetry', () => {
+    const mockedCallback = jest.fn();
     const testRenderer = renderer.create(
-      <ErrorMessage onRetry={() => jest.fn()} />,
+      <ErrorMessage onRetry={mockedCallback} />,
     );
-    expect(testRenderer.root.findAllByType(Button)).toHaveLength(1);
+    const button = testRenderer.root.findByType(Button);
+    button.props.onPress();
+
+    expect(mockedCallback).toBeCalled();
   });
 });

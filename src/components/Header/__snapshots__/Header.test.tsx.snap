@@ -41,6 +41,7 @@ exports[`<Header /> renders correctly 1`] = `
         Object {
           "color": "#2a2a30",
           "fontSize": 24,
+          "fontWeight": "600",
         }
       }
     >

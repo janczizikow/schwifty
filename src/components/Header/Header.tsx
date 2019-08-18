@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
   title: {
     color: theme.colors.dark,
     fontSize: 24,
+    fontWeight: '600',
   },
   searchBar: {
     flex: 1,
