@@ -1,18 +1,21 @@
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 import {
   View,
   ActivityIndicator,
   FlatList,
   StyleSheet,
   ListRenderItemInfo,
+  Text,
 } from 'react-native';
 import {NavigationScreenProps} from 'react-navigation';
 import gql from 'graphql-tag';
 import {useApolloClient} from 'react-apollo';
 import debounce from 'lodash/debounce';
 
-import {Header, CharacterCard} from '../components';
-import {Character, Characters} from '../graphql';
+import {Header, CharacterCard} from '../../components';
+import {searchInit, searchSuccess, searchFailed} from './searchActions';
+import searchReducer, {hasSearchResults} from './searchReducer';
+import {Character, Characters} from '../../graphql';
 
 export const SEARCH_CHARACTERS_QUERY = gql`
   query searchCharactersQuery($name: String!) {
@@ -28,33 +31,29 @@ export const SEARCH_CHARACTERS_QUERY = gql`
 `;
 
 const SearchScreen: React.FC<NavigationScreenProps> = ({navigation}) => {
-  const [loading, setLoading] = useState(false);
-  const [searchResults, setSearchResults] = useState<Character[]>([]);
+  const [state, dispatch] = useReducer(searchReducer, {
+    loading: false,
+    dirty: false,
+    results: [],
+    error: null,
+  });
   const client = useApolloClient();
   const goBack = () => {
     navigation.pop();
   };
 
   const handleSearch = debounce(async (text: string) => {
+    dispatch(searchInit(text));
     if (text) {
-      setLoading(true);
-
       try {
         const {data} = await client.query<{characters: Characters}>({
           query: SEARCH_CHARACTERS_QUERY,
           variables: {name: text},
         });
-
-        if (data.characters.results) {
-          setSearchResults(data.characters.results);
-        }
+        dispatch(searchSuccess(data.characters.results as Character[] | null));
       } catch (err) {
-        // TODO: error handling
+        dispatch(searchFailed(err));
       }
-
-      setLoading(false);
-    } else {
-      setSearchResults([]);
     }
   }, 350);
 
@@ -68,6 +67,12 @@ const SearchScreen: React.FC<NavigationScreenProps> = ({navigation}) => {
     />
   );
 
+  const renderEmptyState = () => {
+    return state.dirty ? (
+      <Text style={styles.centerText}>No results!</Text>
+    ) : null;
+  };
+
   const getItemLayout = (_: Character[] | null, index: number) => ({
     length: CharacterCard.HEIGHT,
     offset: CharacterCard.HEIGHT * index,
@@ -78,17 +83,24 @@ const SearchScreen: React.FC<NavigationScreenProps> = ({navigation}) => {
     <View style={styles.flex}>
       <Header onBackButtonPress={goBack} onChangeSearchText={handleSearch} />
       <View style={styles.flex}>
-        {loading ? (
+        {state.loading ? (
           <View style={styles.center}>
             <ActivityIndicator />
           </View>
+        ) : state.error ? (
+          <View style={styles.center}>
+            <Text>{state.error.message}</Text>
+          </View>
         ) : (
           <FlatList
+            contentContainerStyle={
+              hasSearchResults(state) ? undefined : styles.list
+            }
             keyExtractor={keyExtractor}
             renderItem={renderFlatListItem}
-            data={searchResults}
+            data={state.results}
             getItemLayout={getItemLayout}
-            // TODO: ListEmptyComponent
+            ListEmptyComponent={renderEmptyState}
           />
         )}
       </View>
@@ -100,10 +112,17 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
+  list: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   center: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  centerText: {
+    textAlign: 'center',
   },
 });
 
