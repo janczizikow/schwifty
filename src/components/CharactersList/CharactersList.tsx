@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Dimensions, ActivityIndicator} from 'react-native';
 import {RecyclerListView, DataProvider} from 'recyclerlistview';
 import gql from 'graphql-tag';
-import {useQuery} from 'react-apollo';
+import {useQuery} from '@apollo/react-hooks';
 import LayoutProvider, {LAYOUT_TYPE} from './LayoutProvider';
 import CharacterCard from '../CharacterCard';
 import ErrorMessage from '../ErrorMessage';
@@ -18,7 +18,6 @@ export const MORE_CHARACTERS_QUERY = gql`
       results {
         id
         name
-        species
         status
         image
       }
@@ -64,7 +63,7 @@ const CharactersList = () => {
     />
   );
 
-  const renderFooter = () => <ActivityIndicator />;
+  const renderFooter = () => (!fetchedAllPages ? <ActivityIndicator /> : null);
 
   const refetchOnError = () => {
     refetch({page: 1});
@@ -74,7 +73,6 @@ const CharactersList = () => {
     if (
       !fetchedAllPages &&
       data &&
-      data.characters &&
       data.characters.info &&
       data.characters.info.next
     ) {

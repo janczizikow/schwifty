@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {NavigationScreenProps} from 'react-navigation';
 import gql from 'graphql-tag';
-import {useApolloClient} from 'react-apollo';
+import {useApolloClient} from '@apollo/react-hooks';
 import debounce from 'lodash/debounce';
 
 import {Header, CharacterCard} from '../../components';

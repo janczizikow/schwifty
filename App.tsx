@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {StatusBar, Platform} from 'react-native';
-import {ApolloProvider} from 'react-apollo';
+import {ApolloProvider} from '@apollo/react-hooks';
 import AppNavigator from './src/AppNavigator';
 import client from './src/utils/apollo';
 
